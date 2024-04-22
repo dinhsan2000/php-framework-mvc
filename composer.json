@@ -1,0 +1,35 @@
+{
+    "name": "dinhsan/php_oop",
+    "description": "description",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+      {
+        "name": "DinhSan",
+        "email": "email@example.com"
+      }
+    ],
+    "require": {
+      "ext-pdo": "*",
+      "php": "^8.1",
+      "application/framework": "^1.0"
+    },
+    "repositories": [
+        {
+        "type": "path",
+        "url": "./framework",
+        "options": {
+              "symlink": true
+          }
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "app/",
+        "Core\\": "core/"
+      },
+        "files": [
+            "app/Helper/helper.php"
+        ]
+    }
+}

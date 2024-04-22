@@ -1,0 +1,27 @@
+{
+  "name": "application/support",
+  "description": "Support module for the application",
+  "keywords": ["support", "application"],
+  "authors": [
+    {
+        "name": "Dinh San",
+        "email": "dinhsan200@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+        "php": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Application\\Support\\": ""
+    },
+    "files": [
+      "helpers.php"
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev"
+}

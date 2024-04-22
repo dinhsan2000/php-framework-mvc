@@ -1,0 +1,37 @@
+{
+    "name": "application/framework",
+    "description": "A simple PHP framework",
+    "type": "project",
+    "keywords": ["framework", "php"],
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "Dinh San",
+        "email": "dinhsan200@gmail.com"
+      }
+    ],
+    "require": {
+      "php": "^8.0",
+      "phroute/phroute": "^2.2",
+      "vlucas/phpdotenv": "^5.4.1",
+      "eftec/bladeone": "^4.1"
+    },
+    "replace": {
+      "application/routing": "self.version",
+      "application/database": "self.version",
+      "application/support": "self.version"
+    },
+    "autoload": {
+      "psr-4": {
+        "Application\\": "src/Application"
+      },
+      "files": [
+        "src/Application/Support/helpers.php"
+      ]
+    },
+    "config": {
+      "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
