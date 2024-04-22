@@ -17,8 +17,8 @@
             <td>{{ $user->created_at }}</td>
             <td>{{ $user->updated_at }}</td>
             <td>
-                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
-                <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-danger">Delete</a>
+{{--                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Edit</a>--}}
+{{--                <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-danger">Delete</a>--}}
             </td>
         </tr>
     @endforeach
