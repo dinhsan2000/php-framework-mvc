@@ -1,7 +1,5 @@
 <?php
 
-use eftec\bladeone\BladeOne;
-
 if (!function_exists('env')) {
     function env(string $key, string $default = null): string
     {
@@ -9,42 +7,53 @@ if (!function_exists('env')) {
     }
 }
 
-if (!function_exists('resource_path')) {
-    function resource_path(string $path = '')
+if (!function_exists('response')) {
+    function response(array $data, int $status = 200): string|bool
     {
-        return require_once __DIR__ . '/../../../../resources/' . $path;
+        http_response_code($status);
+        header('Content-Type: application/json');
+        $newData = wrapKeys($data);
+        return json_encode(removeNumericKeys($newData));
     }
 }
 
-if (!function_exists('storage_path')) {
-    function storage_path(string $path = ''): string
+if (!function_exists('json')) {
+    function json(string $data): array
     {
-        $storagePath = __DIR__ . '/../../../../storage/' . $path;
+        return json_decode($data, true);
+    }
+}
 
-        // Check if the storage path exists
-        if (!file_exists($storagePath)) {
-            // if not, create the storage path
-            mkdir($storagePath, 0777, true);
+if (!function_exists('removeNumericKeys')) {
+    function removeNumericKeys(array $data): array
+    {
+        foreach ($data as &$item) {
+            foreach ($item as $key => $value) {
+                if (is_int($key)) {
+                    unset($item[$key]);
+                }
+            }
+        }
+        return $data;
+    }
+}
+
+if (!function_exists('warpKeys')) {
+    function wrapKeys(array $data): array
+    {
+        $wrappedData = [];
+
+        foreach ($data as $item) {
+            $newItem = [];
+            foreach ($item as $key => $value) {
+                // Only wrap non-numeric keys
+                if (!is_int($key)) {
+                    $newItem['data'][$key] = $value;
+                }
+            }
+            $wrappedData[] = $newItem;
         }
 
-        return require_once $storagePath;
-    }
-}
-
-if (!function_exists('view')) {
-    function view(string $view, array|null $data)
-    {
-        // convert dot notation to slash notation
-        $convertViewDotToSlashNotation = str_replace('.', '/', $view);
-        $viewDir = resource_path('views/' . $convertViewDotToSlashNotation . '.blade.php');
-
-        $storageDir = storage_path('framework/views/');
-
-        $blade = new BladeOne($viewDir, $storageDir, BladeOne::MODE_DEBUG);
-
-        // Compile all blade files in the views directory
-        $blade->compile($viewDir, $storageDir);
-
-        return $blade->run($convertViewDotToSlashNotation, compact($data));
+        return $wrappedData;
     }
 }

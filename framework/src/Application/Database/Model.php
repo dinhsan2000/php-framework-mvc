@@ -15,6 +15,7 @@ abstract class Model implements ArrayAccess
     protected mixed $sql;
     protected mixed $statement;
     private mixed $attributes;
+    protected bool $timestamps = false;
 
     public function __construct($attributes = [])
     {
@@ -100,11 +101,23 @@ abstract class Model implements ArrayAccess
             // Filter the data array to only include fields in $fillable
             $data = array_intersect_key($data, array_flip($this->fillable));
         }
+
         // Convert the data array to a string
         $columns = $this->implode(array_keys($data));
+
+        // Add timestamps if $timestamps is set to true
+        if ($this->timestamps) {
+            $columns .= ',created_at,updated_at';
+            $data['created_at'] = date('Y-m-d H:i:s');
+            $data['updated_at'] = date('Y-m-d H:i:s');
+        }
+
         $keyValues = $this->implode(array_fill(0, count($data), '?'));
 
+        var_dump($columns);
+        var_dump($data);
         $sql = "INSERT INTO `$this->table` ($columns) VALUES ($keyValues)";
+        var_dump($sql);
 
         try {
             $this->setSqlQuery($sql);
@@ -133,6 +146,13 @@ abstract class Model implements ArrayAccess
         }
         // Convert the data array to a string
         $columns = $this->implode(array_keys($data));
+
+        // Add timestamps if $timestamps is set to true
+        if ($this->timestamps) {
+            $columns .= ',updated_at';
+            $data['updated_at'] = date('Y-m-d H:i:s');
+        }
+
         $values = $this->implode(array_values($data));
 
         $sql = "UPDATE `$this->table` SET $columns = $values WHERE id = ?";

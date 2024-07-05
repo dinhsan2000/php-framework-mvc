@@ -10,6 +10,7 @@ $dotenv->load();
 
 // Define the routes
 Router::get('/user', [UserController::class, 'index']);
+Router::post('/user', [UserController::class, 'create']);
 
 // Handle the request
 $response = Router::handle();

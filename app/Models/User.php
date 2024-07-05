@@ -10,4 +10,6 @@ class User extends Model
     protected array $fillable = [
         'name', 'email', 'password'
     ];
+
+    protected bool $timestamps = true;
 }

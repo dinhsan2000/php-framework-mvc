@@ -17,7 +17,8 @@ class UserController extends BaseController
 
     public function index()
     {
-        return view('user.index', ['users' => $this->user->get()]);
+        $data = $this->user->get();
+        return response($data, 200);
     }
 
     public function create()
