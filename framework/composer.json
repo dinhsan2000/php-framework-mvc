@@ -14,8 +14,7 @@
     "require": {
       "php": "^8.0",
       "phroute/phroute": "^2.2",
-      "vlucas/phpdotenv": "^5.4.1",
-      "eftec/bladeone": "^4.1"
+      "vlucas/phpdotenv": "^5.4.1"
     },
     "replace": {
       "application/routing": "self.version",
